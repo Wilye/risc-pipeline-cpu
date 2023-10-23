@@ -1,0 +1,10 @@
+*.vcd
+*.out
+*.err
+*.time
+*.result
+*.diff
+*.raw
+*.cycles
+mem.hex
+cpu

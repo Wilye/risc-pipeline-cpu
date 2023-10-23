@@ -1,0 +1,29 @@
+// Branch Prediction Test Case: a simple for loop which alternates branches TTF at the if statement's and the loop's jumps
+// Note T is taken and F is not taken, and repeat this for loop a lot of times (nested loop)
+// Result should be 64 lines of an A (outside for loop runs 32 times, inside for loop runs 3 times but prints A only 2 of the 3 iterations)
+
+@0
+80E4 // store where to jump to for outside loop (stores in r4 the value 14)
+8165 // store where to jump to for inside loop
+81E6 // store where to jump to for if statement
+8417 // print A
+80A8 // print new line
+
+81F1 // outside loop counter (runs 32 times)
+8012 // overall decrement of 1
+
+0700 // print A + new line (this is instruction 14)
+0800 
+0121 // decrease outside loop counter by 1
+
+8023 // inside loop counter (runs 3 times)
+0323 // decrease inside loop counter by 1
+
+E336 // jns to after print statement
+0700 // print A + new line
+0800
+E335 // jns to top of inside loop
+
+E134 // jns to top of outside loop
+
+FFFF

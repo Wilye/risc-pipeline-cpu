@@ -1,0 +1,136 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue Apr 11 06:08:57 2023
+[*]
+[dumpfile] "/u/shelby/429h projects/cs429h_s23_p6_shelby/020.vcd"
+[dumpfile_mtime] "Tue Apr 11 05:48:38 2023"
+[dumpfile_size] 224706158
+[savefile] "/u/shelby/429h projects/cs429h_s23_p6_shelby/gtksetup.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-12.000000 83000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main.
+[sst_width] 213
+[signals_width] 206
+[sst_expanded] 1
+[sst_vpaned_height] 319
+@28
+main.clk
+@22
+main.pc[15:0]
+@28
+main.F_valid
+main.F2_valid
+@800200
+-D
+@22
+main.D_pc[15:0]
+main.ins[15:0]
+@28
+main.D_valid
+main.D_is_movl
+main.D_is_movh
+main.D_is_sub
+main.D_is_jump
+@22
+main.D_jump_io_type[3:0]
+main.D_arg1[3:0]
+main.D_arg2[3:0]
+main.D_arg1_wire[3:0]
+main.D_reg1_real[15:0]
+main.regs.raddr0[3:0]
+main.regs.rdata0[15:0]
+main.D_reg2_real[15:0]
+main.regs.raddr1[3:0]
+main.regs.rdata1[15:0]
+main.D_arg1_wire[3:0]
+main.D_arg2_wire[3:0]
+main.ins[15:0]
+@1000200
+-D
+@800200
+-X
+@22
+main.X_pc[15:0]
+@28
+main.X_valid
+main.X_is_movl
+main.X_is_sub
+@22
+main.X_reg1[15:0]
+main.X_reg1_wire[15:0]
+main.X_movl_result[15:0]
+main.X_arg1[3:0]
+@28
+main.X_jump_taken_wire
+@22
+main.X_arg2[3:0]
+@28
+main.X_jump_taken
+@1000200
+-X
+@22
+main.mem_out1[15:0]
+@800200
+-X2
+@22
+main.X2_pc[15:0]
+@28
+main.X2_valid
+main.X2_is_sub
+main.X2_is_movl
+@22
+main.X2_sub_result[15:0]
+main.X2_movl_result[15:0]
+main.X2_movh_result[15:0]
+main.X2_pc_after_jump[15:0]
+main.X2_arg1[3:0]
+main.X2_arg2[3:0]
+main.X2_reg1[15:0]
+main.X2_reg2[15:0]
+@28
+main.X2_jump_taken
+@1000200
+-X2
+@28
+main.WB_is_movl
+main.WB_is_sub
+@22
+main.WB_movl_result[15:0]
+main.WB_sub_result[15:0]
+main.WB_target[3:0]
+main.WB_mem_waddr[15:1]
+main.WB_mem_wdata[15:0]
+main.WB_regs_waddr[3:0]
+@23
+main.WB_regs_wdata[15:0]
+@22
+main.WB_ld_result[15:0]
+main.mem_out1[15:0]
+main.mem_read1[15:1]
+@28
+main.WB_mem_wen
+@22
+main.WB_movl_result[15:0]
+@28
+main.do_halt
+main.WB_valid
+main.doFlush
+main.WB_jump_taken
+@22
+main.WB_pc[15:0]
+@28
+main.do_halt
+@22
+main.newPC[15:0]
+@28
+main.WB_is_ld_st
+main.WB_regs_wen
+[pattern_trace] 1
+[pattern_trace] 0
+!100000@@
+?"E134
+@23
+main.ins[15:0]
+!!

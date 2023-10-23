@@ -1,0 +1,5 @@
+@0
+8641 // movl r1, 100
+8342 // movl r2, 52
+0120 // sub r0, r1, r2 this prints "0" if you forward
+ffff

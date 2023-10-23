@@ -1,0 +1,68 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sun Apr  9 10:11:13 2023
+[*]
+[dumpfile] "/u/shelby/429h projects/cs429h_s23_p6_shelby/t0.vcd"
+[dumpfile_mtime] "Sun Apr  9 10:06:55 2023"
+[dumpfile_size] 6590
+[savefile] "/u/shelby/429h projects/cs429h_s23_p6_shelby/t0save.vcd.gtkw"
+[timestart] 670
+[size] 1000 600
+[pos] 254 132
+*-12.000000 5200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] main.
+[sst_width] 213
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 141
+@28
+main.clk
+@22
+main.ins[15:0]
+@28
+main.F_valid
+main.F2_valid
+@800200
+-D
+@28
+main.D_valid
+main.D_is_movl
+main.D_is_movh
+main.D_is_sub
+main.D_is_jump
+@23
+main.D_jump_io_type[3:0]
+@22
+main.D_literal[7:0]
+main.D_arg1[3:0]
+main.D_arg2[3:0]
+main.D_reg1[15:0]
+main.D_reg1_real[15:0]
+main.D_reg2[15:0]
+main.D_reg2_real[15:0]
+@1000200
+-D
+@800200
+-X
+@28
+main.X_is_movl
+@22
+main.X_movl_result[15:0]
+@1000200
+-X
+@22
+main.mem_read1[15:0]
+main.mem_out1[15:0]
+@c00200
+-X2
+@28
+main.X2_is_movl
+@1401200
+-X2
+@22
+main.WB_mem_waddr[15:1]
+main.WB_mem_wdata[15:0]
+main.WB_regs_waddr[3:0]
+main.WB_regs_wdata[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

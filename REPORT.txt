@@ -1,0 +1,70 @@
+(1) Discuss the hazards you had to deal with. For each:
+
+ - What type of hazard was it?
+
+ - Show an instruction sequence that exposes it
+
+ - What solutions did you consider?
+
+ - Which one did you pick? Why?
+
+ Resource hazards were a non-issue in this project for me.
+
+I had to deal with control hazards. 
+
+Control hazard instruction sequence:    
+    movl r1, 6
+    jz r1, r0
+    movl r1, 10 //should never do this, so this would be an incorrect instruction in the pipeline
+    sub r0, r1, r0 //should print whatever the decimal value 6 translates to in hex as an ASCII
+
+This would occur whenever I would take a jump instruction, meaning that the instructions in
+the pipeline were wrong because the PC was incorrect. I considered branch prediction and flushing, and I decided on flushing
+because it's simple to implement and it works. So, I would kill all instructions (if the jump was taken) during write back.
+
+I also had to deal with data hazards. 
+
+Data hazard instruction sequence:
+    movl r1, 10
+    movl r2, 20
+    sub r0, r2, r1
+
+Another example of a data hazard:
+    movl r1, 10
+    movl r2, 20
+    NOP
+    NOP
+    NOP
+    movl r2, 30
+    sub r0, r2, r1
+
+Another example of a data hazard with load:
+    movl r1, 10
+    NOP
+    NOP
+    NOP
+    movl r1, 20
+    ld r2, r1
+    
+
+The first example is a data hazard because r1 and r2 do not have values until they've reached write back, which is a problem
+for the sub instruction because when the sub instruction needs to execute, r1 and r2 are still 0.
+
+The second example is also a data hazard because the sub instruction could use the wrong value of r2 if the movl r2, 30 instruction
+hasn't reached write back.
+
+The third example is a data hazard because the load instruction would use the wrong value of r1 since the instruction movl r1, 20
+hasn't reached write back yet.
+
+These are all read after write dependencies.
+
+I considered forwarding, stalling, and flushing. Forwarding would require sending the previous stage that is trying to read the register
+the correct value that hasn't been written back yet. Stalling would require setting busy flags on registers that are going to be
+written into, and if the instruction in a cycle which needs to read that register sees the busy flag, it stays at that stage for another cycle
+until the register becomes un-busy (meaning it finally got written into).
+
+I decided on flushing because it was the easiest and I am a bit tired 😭. 
+
+(2) Can your implementation handle misaligned memory references? Explain
+
+No, my implementation cannot handle misaligned memory references. I just tried to get my pipeline working.

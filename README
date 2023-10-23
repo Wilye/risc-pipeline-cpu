@@ -1,0 +1,84 @@
+Due date:
+    test 4/8/2021 @11:59pm
+    code 4/10/2021 @11:59pm
+
+Assignment: 
+
+(1) Finish a pipelined implementation of a simple instruction set.
+
+    Please look carefully at mem.v and regs.v, leave both the interface
+    and timing alone.
+
+(2) Contribute a test by adding 2 files and committing them:
+
+    - <your csid>.hex       your program
+    - <your csid>.ok        expected output
+
+(3) Answer the questions in REPORT.txt
+
+(4) Your grade will be based on correctness, performance (CPI), and quality
+    of test case
+
+Architecture
+~~~~~~~~~~~~
+
+  - memory is byte addressable
+
+  - words are 16 bits
+
+  - 16 register names r0, r1, ..., r15 (16 bits each)
+  
+  - r0 is special:
+      * reading from r0 always returns 0
+      * writing to r0 interprets the the least significant
+        8 bits as an ASCII code and prints that character
+
+  - all instructions are 16 bit wide
+
+  encoding          instruction   description
+    
+  0000aaaabbbbtttt  sub rt,ra,rb  regs[t] = regs[a] - regs[b] 0000000100100000
+
+  1000iiiiiiiitttt  movl rt,i     regs[t] = sign_extend(i)
+  1001iiiiiiiitttt  movh rt,i     regs[t] = (regs[t] & 0xff) | (i << 8) //keeps the lower 8 bits the same, and makes the higher 8 bits whatever i is
+
+  1110aaaa0000tttt  jz rt,ra      pc = (regs[ra] == 0) ? regs[rt] : pc + 2
+  1110aaaa0001tttt  jnz rt,ra     pc = (regs[ra] != 0) ? regs[rt] : pc + 2
+  1110aaaa0010tttt  js rt,ra      pc = (regs[ra] < 0) ? regs[rt] : pc + 2
+  1110aaaa0011tttt  jns rt,ra     pc = (regs[ra] >= 0) ? regs[rt] : pc + 2
+
+  1111aaaa0000tttt  ld rt,ra      regs[t] = mem[regs[a]]
+  1111aaaa0001tttt  st rt,ra      mem[regs[a]] = regs[t]
+
+
+  Any illegal instruction halts the processor by asserting the
+  halt signal. This also terminates the simulation.
+
+  Please notice that the "counter" modules prints the number of elapsed
+  cycles before calling "$finish". This is required in order to measure
+  the CPI.
+
+
+Files you can change
+~~~~~~~~~~~~~~~~~~~~
+
+cpu.v contains an incomplete processor design
+
+
+Files you need to leave alone
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mem.v
+regs.v
+counter.v
+clock.v
+
+The make targets/files:
+~~~~~~~~~~~~~~~~~~~~~~~
+
+    <test name>.raw        => the raw output from running the test
+    <test name>.out        => lines from *.raw that start with #
+    <test name>.cycles     => number of cycles needed to run the test
+    <test name>.vcd        => vcd file after running test
+    <test name>.ok         => expected output
+    <test name>.hex        => the test program

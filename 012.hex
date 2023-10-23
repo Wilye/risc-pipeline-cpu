@@ -1,0 +1,9 @@
+@0 // This test checks if your processor still runs if you jump past an illegal instruction. 
+8061 // movl r1, 6
+E001 // jz r1, r0 (jump to mem loc 6)
+FFFF // Faulty instruction!
+8670 // Jumping here; movl r0, 103  (print g)
+86A0 // movl r0, 106 (print j)
+80A0 // movl r0, 10 (print \n)
+FFFF // End 
+8690 // You shouldn't see this

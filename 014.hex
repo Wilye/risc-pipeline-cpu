@@ -1,0 +1,79 @@
+// This testcase covers many basic commands, some hazard handling, and valid
+// usage of the register r0. Note that most passed tests result in "CX" being
+// printed (where X is the test number), whereas an invalid test result could
+// cause "ICX" to be printed (or it could have strange behavior). Also, each
+// test is separated by the command 800F (which clears register 15).
+@0
+
+// 1: Tests that moving values to r0 (via movl) will cause them to be printed
+8430 // prints 'C'
+8310 // prints '1'
+80A0 // prints '\n'
+800F // r15 <-- 0 (end of test 1)
+
+// 2: Tests basic subtraction between registers (which also tests for proper
+// stalling or flushing behavior) using movl and sub
+8981 // r1 <-- 0x98
+8552 // r2 <-- 0x55
+0120 // prints r1 - r2 = 0x43 = 'C'
+8FF1 // r1 <-- 0xFFFF (sign extension)
+8CD2 // r2 <-- 0xFFCD (sign extension)
+0120 // prints r1 - r2 = 0x31 = '1'
+80A0 // prints '\n'
+800F // r15 <-- 0 (end of test 2)
+
+// 3: Tests setting of upper bits as well as jumping if zero (which also tests
+// for control hazard handling) using movl, movh, sub, and jz
+8001 // r1 <-- 0
+8002 // r2 <-- 0
+9AE1 // r1[15:8] <-- 0xAE
+9572 // r2[15:8] <-- 0x57
+0123 // r3 <-- r1 - r2 = 0x57
+0234 // r4 <-- r2 - r3 = 0
+82A5 // r5 <-- 0x2A (for jumping purposes)
+E405 // jump to r5 if r4 == 0 (it should take the jump)
+8490 // prints 'I' (this should be skipped)
+8430 // prints 'C' (instruction 0x2A; this should be executed)
+8330 // prints '3'
+80A0 // prints '\n'
+800F // r15 <-- 0 (end of test 3)
+
+// 4: Tests sign extension of moving to lower bits, jumping if not zero, and 
+// reading + writing to registers within the same instruction, using movl,
+// sub, and jnz
+8FF1 // r1 <-- 0xFFFF (sign extension)
+87F2 // r2 <-- 0x7F (not sign extension)
+8013 // r3 <-- 1 (not sign extension)
+0121 // r1 <-- r1 - r2 = 0xFF80
+0121 // r1 <-- r1 - r2 = 0xFF01
+0131 // r1 <-- r1 - r3 = 0xFF00 (note: r1[7:0] == 0, but r1 != 0)
+8464 // r4 <-- 0x46 (for jumping purposes)
+E114 // jump to r4 if r1 != 0 (it should take the jump)
+8490 // prints 'I' (this should be skipped)
+8490 // prints 'I' (this should also be skipped)
+8430 // prints 'C' (instruction 0x46; this should be executed)
+8340 // prints '4'
+80A0 // prints '\n'
+800F // r15 <-- 0 (end of test 4)
+
+// 5: Checks that reading from r0 returns 0 and that both taken and untaken 
+// branches work properly using movl, jz, and jnz
+8581 // r1 <-- 0x58 (for jumping purposes)
+85E2 // r2 <-- 0x5E (for jumping purposes)
+E001 // jump to r1 if r0 == 0 (it should take the jump)
+8490 // prints 'I' (this should be skipped)
+8490 // prints 'I' (this should also be skipped)
+8430 // prints 'C' (instruction 0x58; this should be executed)
+E012 // jump to r2 if r0 != 0 (it should not take the jump)
+8350 // prints '5' (this should not be skipped)
+80A0 // prints '\n' (instruction 0x5E)
+800F // r15 <-- 0 (end of test 5)
+
+// 6: Tests that the below instruction will halt the program (note that
+// nothing should be printed for this test - if "I6" is printed, then the
+// result was incorrect for this test)
+EF5F // halt instruction (invalid jump instruction)
+8490 // prints 'I' (this should not be executed)
+8360 // prints '6' (this should not be executed)
+800F // r15 <-- 0 (to mark test 6)
+60C0 // another halt instruction (in case EF5F did not halt)
